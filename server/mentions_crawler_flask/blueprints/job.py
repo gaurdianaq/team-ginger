@@ -23,6 +23,7 @@ def get_tasks_id(site: str, user_id: int):
 @job_bp.route("/requests/<string:site_name>", methods=["POST"])
 @authenticate()
 def requests(user, site_name: str):
+    print("Got request")
     user_id = user.get(USER_ID_TAG)
     token = request.cookies.get(TOKEN_TAG)
     assoc = SiteAssociation.query.filter_by(mention_user_id=user_id, site_name=site_name).first()
