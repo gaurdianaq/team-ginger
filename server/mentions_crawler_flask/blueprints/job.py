@@ -56,6 +56,7 @@ def responses(user):
                                     "nothing will be added to the database.")
     else:
         if body.get(MENTIONS_TAG):
+            host = "http://" + request.host_url
             mentions = body.get(MENTIONS_TAG)
             db_mentions = []
             for mention in mentions:
@@ -70,9 +71,9 @@ def responses(user):
 
             result = insert_rows(db_mentions)
             if result is not True:
-                result = enqueue(site, user.get(USER_ID_TAG), request.cookies.get(TOKEN_TAG), True)
+                result = enqueue(site, user.get(USER_ID_TAG), host, request.cookies.get(TOKEN_TAG), True)
                 return result
-            result = enqueue(site, user.get(USER_ID_TAG), request.cookies.get(TOKEN_TAG), False)
+            result = enqueue(site, user.get(USER_ID_TAG), host, request.cookies.get(TOKEN_TAG), False)
             if tasks.get(get_tasks_id(site, user_id)) is not None:
                 del tasks[get_tasks_id(site, user_id)]
             if isinstance(result, AsyncResult):
