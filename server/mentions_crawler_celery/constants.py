@@ -6,7 +6,7 @@ FACEBOOK = "Facebook"
 
 _ISSUER = "Evan & Ryan"
 
-HOST = "http://0.0.0.0:"+os.environ["PORT"]
+HOST = "http://localhost:"+os.environ["PORT"]
 RESPONSE_URL = HOST+"/jobs/responses"
 COMPANIES_URL = HOST+"/companies"
 DB_CLEAN_URL = HOST+"/db/clean"
