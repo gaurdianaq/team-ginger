@@ -67,5 +67,5 @@ if __name__ == "__main__":
         app.register_blueprint(blueprint)
 
     socketio.init_app(app)
-    socketio.run(app)
+    socketio.run(app, host="0.0.0.0", port=os.environ["PORT"])
 
