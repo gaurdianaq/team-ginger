@@ -35,6 +35,7 @@ def search(user_id: int, companies: list, cookies: dict, first_run: bool):
 
 def enqueue(user_id: int, companies: list, cookies: dict, first_run: bool):
     try:
+        print("we're about to submit the task to celery")
         if first_run is True:
             result = search.apply_async((user_id, companies, cookies, first_run), queue=CRAWLER_QUEUE_NAME)
         else:
