@@ -4,10 +4,10 @@ FACEBOOK = "Facebook"
 
 _ISSUER = "Evan & Ryan"
 
-RESPONSE_URL = "http://localhost:5000/jobs/responses"
-COMPANIES_URL = "http://localhost:5000/companies"
-DB_CLEAN_URL = "http://localhost:5000/db/clean"
-EMAIL_URL = "http://localhost:5000/email"
+RESPONSE_URL = "0.0.0.0/jobs/responses"
+COMPANIES_URL = "0.0.0.0/companies"
+DB_CLEAN_URL = "0.0.0.0/db/clean"
+EMAIL_URL = "0.0.0.0/email"
 
 CRAWLER_QUEUE_NAME = "crawlers"
 
