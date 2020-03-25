@@ -10,7 +10,6 @@ autopep8 = "*"
 [packages]
 flask = "*"
 flask-sqlalchemy = "*"
-flask-cors = "*"
 flask-socketio = "*"
 pyjwt = "*"
 psycopg2 = "*"

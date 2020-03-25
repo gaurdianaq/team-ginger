@@ -1,5 +1,4 @@
 from flask import Flask, request, send_from_directory
-from flask_cors import CORS
 from server.mentions_crawler_flask.db import db
 from server.mentions_crawler_flask.models.site import create_sites
 from server.mentions_crawler_flask.responses import error_response
