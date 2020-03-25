@@ -1,13 +1,16 @@
+import os
+
 REDDIT = "Reddit"
 TWITTER = "Twitter"
 FACEBOOK = "Facebook"
 
 _ISSUER = "Evan & Ryan"
 
-RESPONSE_URL = "http://0.0.0.0/jobs/responses"
-COMPANIES_URL = "http://0.0.0.0/companies"
-DB_CLEAN_URL = "http://0.0.0.0/db/clean"
-EMAIL_URL = "http://0.0.0.0/email"
+HOST = "http://0.0.0.0:"+os.environ["PORT"]
+RESPONSE_URL = HOST+"/jobs/responses"
+COMPANIES_URL = HOST+"/companies"
+DB_CLEAN_URL = HOST+"/db/clean"
+EMAIL_URL = HOST+"/email"
 
 CRAWLER_QUEUE_NAME = "crawlers"
 
