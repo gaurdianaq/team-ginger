@@ -69,9 +69,12 @@ def update_companies(user):
 @company_bp.route("/companies", methods=["GET"])
 @authenticate()
 def get_companies(user):
+    print("getting companies")
     companies = Company.query.filter_by(mention_user_id=user.get(USER_ID_TAG))
+    print("got companies from database")
     company_dicts = []
+    print("iterating through companies")
     for company in companies:
         company_dicts.append({COMPANY_ID_TAG: company.id, COMPANY_NAME_TAG: company.name})
-
+    print("about to return")
     return data_response({COMPANIES_TAG: company_dicts})

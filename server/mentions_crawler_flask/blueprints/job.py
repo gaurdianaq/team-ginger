@@ -27,6 +27,7 @@ def requests(user, site_name: str):
     user_id = user.get(USER_ID_TAG)
     token = request.cookies.get(TOKEN_TAG)
     assoc = SiteAssociation.query.filter_by(mention_user_id=user_id, site_name=site_name).first()
+    print("got assoc")
     if assoc is None:
         if tasks.get(get_tasks_id(site_name, user_id)) is not None:
             tasks[get_tasks_id(site_name, user_id)].revoke()  # cancel job
