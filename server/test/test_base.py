@@ -1,14 +1,12 @@
 import pytest
-from ..mentionscrawler import create_app
-from ..mentionscrawler.db import db
+from .. import __main__
 
 
 @pytest.fixture
 def client():
-    app = create_app(True)
-    app.config["TESTING"] = True
-    app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql+psycopg2:///testdb"
-    with app.test_client() as client:
+    __main__.config["TESTING"] = True
+    __main__.config["SQLALCHEMY_DATABASE_URI"] = "postgresql+psycopg2:///testdb"
+    with __main__.test_client() as client:
         yield client
 
 
@@ -25,6 +23,7 @@ def login(client, username, password):
         email=username,
         password=password
     ), follow_redirects=True)
+
 
 def test_cheese(client):
     rv = client.get("/signup")

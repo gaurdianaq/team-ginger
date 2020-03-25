@@ -1,3 +1,0 @@
-SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2:///testdb"
-SQLALCHEMY_TRACK_MODIFICATIONS = False
-SECRET_KEY = "nOtSoSeCrEtKeY!!!"

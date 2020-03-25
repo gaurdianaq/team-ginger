@@ -9,7 +9,6 @@ import SignUpPage from "./pages/SignUp";
 import LoginPage from "./pages/Login";
 import DashboardPage from "./pages/Dashboard";
 import SettingsPage from "./pages/Settings";
-import DialogView from "./pages/DialogView";
 
 function App() {
     return (
@@ -19,8 +18,7 @@ function App() {
                     <Route exact path="/" component={LandingPage} />
                     <Route path="/signup" component={SignUpPage} />
                     <Route path="/login" component={LoginPage} />
-                    <Route exact path="/dashboard" component={DashboardPage} />
-                    <Route path="/dashboard/mention/:id" component={DialogView} />
+                    <Route path="/dashboard" component={DashboardPage} />
                     <Route path="/settings" component={SettingsPage} />
                 </BrowserRouter>
             </SnackbarProvider>

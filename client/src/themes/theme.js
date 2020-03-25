@@ -1,7 +1,6 @@
 import { createMuiTheme } from "@material-ui/core";
 
 export const theme = createMuiTheme({
-    // Override button to follow colour scheme
     overrides: {
         MuiButton: {
             root: {
@@ -12,6 +11,11 @@ export const theme = createMuiTheme({
                     color: "#6583F2",
                     backgroundColor: "#EAEEFD"
                 }
+            }
+        },
+        MuiCheckbox: {
+            root: {
+                color: "#6583F2"
             }
         }
     },

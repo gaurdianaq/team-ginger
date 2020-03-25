@@ -23,7 +23,7 @@ function NavBar(props) {
     return (
         <AppBar position="static" elevation={0}>
             <Toolbar className={classes.toolbar}>
-                <Box style={{ flexGrow: "flexGrow" in props ? props.flexGrow : 1 }}>
+                <Box style={{ flexGrow: `${props.flexGrow}` }}>
                     <img src={Logo} alt="Logo" />
                 </Box>
 

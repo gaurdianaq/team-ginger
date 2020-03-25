@@ -1,57 +1,67 @@
-/* Component for rendering a singlle mention on dashboard and possibly
+/* Component for rendering a single mention on dashboard and possibly
    weekly report 
 */
 
-import React, { useState } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import Paper from "@material-ui/core/Paper";
-import { default as Modal } from "@material-ui/core/Dialog";
-import { DIALOG_URL } from "../Constants";
-import Dialog from "./Dialog";
+import MentionContainer from "./MentionContainer";
+import MentionHeader from "./MentionHeader";
+import MentionText from "./MentionText";
+import { DASHBOARD_URL } from "../Constants";
 
 const useStyles = makeStyles(theme => ({
-    card: {
+    link: {
+        textDecoration: "none",
+        width: "100%",
+        "&:last-child": {
+            marginBottom: theme.spacing(10)
+        }
+    },
+    container: {
         display: "flex",
         padding: theme.spacing(2),
         width: "100%",
         boxSizing: "border-box",
-        cursor: "pointer"
+        marginBottom: theme.spacing(2)
     },
-    image: {
-        width: 100,
-        height: 100
-    },
+
     text: {
         marginLeft: theme.spacing(2),
-        wordBreak: "break-word"
+        wordBreak: "break-word",
+        width: "100%"
     }
 }));
 
 function Mention(props) {
     const classes = useStyles();
-    const [open, setOpen] = useState(false);
-    return (
-        <React.Fragment>
-            <Paper className={classes.card} onClick={() => setOpen(true)}>
-                <img src={props.img} className={classes.image} />
+    const { id, img, title, site, snippet, bold, sentiment, date, favourite, history, unmount, handleFavourite } = props;
 
+    return (
+        <Link to={`${DASHBOARD_URL}/mention/${id}`} className={classes.link}>
+            <MentionContainer container={classes.container} img={img} site={site}>
                 <Box className={classes.text}>
-                    <Typography variant="body1">{props.title}</Typography>
-                    <Typography variant="body2" color="textSecondary">
-                        {props.site}
-                    </Typography>
-                    <Typography variant="caption" color="textSecondary">
-                        {props.snippet}
-                    </Typography>
+                    <MentionHeader
+                        titleVariant="body1"
+                        bold={bold}
+                        title={title}
+                        sentiment={sentiment}
+                        site={site}
+                        siteVariant="body1"
+                        favourite={favourite}
+                        id={id}
+                        history={history}
+                        date={date}
+                        dateVariant="body2"
+                        unmount={unmount}
+                        handleFavourite={handleFavourite}
+                    />
+                    <MentionText variant="caption" bold={bold} text={snippet} />
                 </Box>
-            </Paper>
-            <Modal open={open} onClose={() => setOpen(false)} maxWidth="xl" scroll="paper">
-                <Dialog id={props.id} />
-            </Modal>
-        </React.Fragment>
+            </MentionContainer>
+        </Link>
     );
 }
 
-export default Mention;
+export default React.memo(Mention, (prev, next) => prev.id === next.id && prev.favourite === next.favourite);
