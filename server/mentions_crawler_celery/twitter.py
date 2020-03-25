@@ -41,7 +41,7 @@ def parse_twitter_date(tweet_date: str):
 
 
 @app.task(name="twitter.search")
-def search(user_id: int, companies: list, cookies: dict, first_run: bool):
+def search(user_id: int, companies: list, cookies: dict, host: str, first_run: bool):
     #  get all company names associated with a user
     api_url = "https://api.twitter.com/1.1/search/tweets.json"
 
@@ -70,15 +70,15 @@ def search(user_id: int, companies: list, cookies: dict, first_run: bool):
                               text, favourites, int(tweet_date_unix_time))
             mentions.append(json.dumps(mention.__dict__))
     payload = {USER_ID_TAG: user_id, SITE_TAG: TWITTER, MENTIONS_TAG: mentions}
-    requests.post(RESPONSE_URL, json=payload, cookies=cookies)
+    requests.post(host+RESPONSE_URL, json=payload, cookies=cookies)
 
 
-def enqueue(user_id: int, companies: list, cookies: dict, first_run: bool):
+def enqueue(user_id: int, companies: list, cookies: dict, host: str, first_run: bool):
     try:
         if first_run is True:
-            result = search.apply_async((user_id, companies, cookies, first_run), queue=CRAWLER_QUEUE_NAME)
+            result = search.apply_async((user_id, companies, cookies, host, first_run), queue=CRAWLER_QUEUE_NAME)
         else:
-            result = search.apply_async((user_id, companies, cookies, first_run), queue=CRAWLER_QUEUE_NAME,
+            result = search.apply_async((user_id, companies, cookies, host, first_run), queue=CRAWLER_QUEUE_NAME,
                                         countdown=SCHEDULE_TIME)
 
     except CeleryError as e:  # might look into more specific errors later, but for now I just need to get this working

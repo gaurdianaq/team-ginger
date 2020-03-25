@@ -6,11 +6,10 @@ FACEBOOK = "Facebook"
 
 _ISSUER = "Evan & Ryan"
 
-HOST = "http://mentions-crawler.herokuapp.com"
-RESPONSE_URL = HOST+"/jobs/responses"
-COMPANIES_URL = HOST+"/companies"
-DB_CLEAN_URL = HOST+"/db/clean"
-EMAIL_URL = HOST+"/email"
+RESPONSE_URL = "/jobs/responses"
+COMPANIES_URL = "/companies"
+DB_CLEAN_URL = "/db/clean"
+EMAIL_URL = "/email"
 
 CRAWLER_QUEUE_NAME = "crawlers"
 

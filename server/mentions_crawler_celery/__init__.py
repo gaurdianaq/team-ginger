@@ -9,12 +9,12 @@ import requests
 enqueue_dict = {REDDIT: reddit.enqueue, TWITTER: twitter.enqueue}
 
 
-def enqueue(site: str, user_id: int, token: str, first_run=True):
+def enqueue(site: str, user_id: int, token: str, host: str, first_run=True):
     print("Hmmmm")
     cookies = {TOKEN_TAG: token}
     try:
         print("trying")
-        request = requests.get(COMPANIES_URL, cookies=cookies)
+        request = requests.get(host+COMPANIES_URL, cookies=cookies)
         print("so far so good")
         if request.status_code == 200:
             try:
@@ -23,7 +23,7 @@ def enqueue(site: str, user_id: int, token: str, first_run=True):
                 print(e)
                 return False
             print("still going well")
-            return enqueue_dict[site](user_id, companies, cookies, first_run)
+            return enqueue_dict[site](user_id, companies, cookies, host, first_run)
         else:
             print(request.text)
     except requests.RequestException as e:

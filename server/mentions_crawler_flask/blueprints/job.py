@@ -35,7 +35,8 @@ def requests(user, site_name: str):
         return ok_response("Task successfully cancelled!")
 
     else:
-        result = enqueue(site_name, user_id, token)
+        print(request.host_url)
+        result = enqueue(site_name, user_id, request.host_url, token)
         if isinstance(result, AsyncResult):
             tasks[get_tasks_id(site_name, user_id)] = result
             return ok_response("Task successfully queued up!")

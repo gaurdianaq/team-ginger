@@ -15,7 +15,7 @@ _reddit = praw.Reddit(client_id=os.environ["REDDIT_CLIENT_ID"],
 
 
 @app.task(name="reddit.search")
-def search(user_id: int, companies: list, cookies: dict, first_run: bool):
+def search(user_id: int, companies: list, cookies: dict, host: str, first_run: bool):
     #  get all company names associated with a user
     mentions = []  # initialize mentions as a list
     for company in companies:
@@ -30,16 +30,16 @@ def search(user_id: int, companies: list, cookies: dict, first_run: bool):
                                   submission.title)
                 mentions.append(json.dumps(mention.__dict__))
     payload = {USER_ID_TAG: user_id, SITE_TAG: REDDIT, MENTIONS_TAG: mentions}
-    requests.post(RESPONSE_URL, json=payload, cookies=cookies)
+    requests.post(host+RESPONSE_URL, json=payload, cookies=cookies)
 
 
-def enqueue(user_id: int, companies: list, cookies: dict, first_run: bool):
+def enqueue(user_id: int, companies: list, cookies: dict, host: str, first_run: bool):
     try:
         print("we're about to submit the task to celery")
         if first_run is True:
-            result = search.apply_async((user_id, companies, cookies, first_run), queue=CRAWLER_QUEUE_NAME)
+            result = search.apply_async((user_id, companies, cookies, host, first_run), queue=CRAWLER_QUEUE_NAME)
         else:
-            result = search.apply_async((user_id, companies, cookies, first_run), queue=CRAWLER_QUEUE_NAME,
+            result = search.apply_async((user_id, companies, cookies, host, first_run), queue=CRAWLER_QUEUE_NAME,
                                         countdown=SCHEDULE_TIME)
 
     except CeleryError as e:  # might look into more specific errors later, but for now I just need to get this working

@@ -65,7 +65,6 @@ if __name__ == "__main__":
     # will register all blueprints
     for blueprint in blueprints:
         app.register_blueprint(blueprint)
-
     socketio.init_app(app)
     socketio.run(app, host="0.0.0.0", port=os.environ["PORT"])
 
